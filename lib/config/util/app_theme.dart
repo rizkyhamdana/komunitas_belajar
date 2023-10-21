@@ -8,7 +8,7 @@ class AppTheme {
   static const Color bgColor = Color(0xFFF4F4F4);
   static const Color bgColor2 = Color(0xFF121518);
   static const Color blackColor2 = Color(0xFF7B7B7B);
-  static const Color blue1 = Color(0xFF487FFF);
+  static const Color blue1 = Color(0xFF60C0E1);
   static const Color blue2 = Color(0xFF689FFF);
   static const Color white = Color(0xFFFFFFFF);
 
@@ -124,7 +124,7 @@ class AppTheme {
       TextStyle(
         fontFamily: fontName,
         fontWeight: FontWeight.w500,
-        fontSize: 13,
+        fontSize: 11,
         color: color,
         decoration: decoration,
         fontStyle: fontStyle,

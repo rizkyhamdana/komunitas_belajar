@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:komunitas_belajar/config/util/custom_widget.dart';
+import 'package:komunitas_belajar/presentation/pages/about_us/about_us_view.dart';
 import 'package:komunitas_belajar/presentation/pages/home/home_view.dart';
 import 'package:komunitas_belajar/presentation/pages/home/sidebar/sidebar_view.dart';
+import 'package:komunitas_belajar/presentation/pages/member/member_view.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 @RoutePage()
@@ -27,7 +29,7 @@ class _BasePageState extends State<BasePage> {
 
     _controller.addListener(() {
       setState(() {
-        if (_controller.selectedIndex == 5) {
+        if (_controller.selectedIndex == 3) {
           _controller.selectIndex(index);
           AwesomeDialog(
             context: context,
@@ -93,26 +95,6 @@ class _BasePageState extends State<BasePage> {
                       ),
                     ),
                   ),
-                  actions: [
-                    Container(
-                      margin: const EdgeInsets.all(12),
-                      child: SizedBox(
-                        width: 32,
-                        height: 32,
-                        child: MaterialButton(
-                          color: AppTheme.white,
-                          padding: const EdgeInsets.all(4),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          onPressed: () {},
-                          child: ImageIcon(
-                            AssetImage(imagePaths('ic_cart')),
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
                 )
               : null,
           drawer: Sidebar(
@@ -149,7 +131,6 @@ class ScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
@@ -157,16 +138,12 @@ class ScreenView extends StatelessWidget {
           case 0:
             return const HomePage();
 
-          case 5:
-            return Text(
-              'Test',
-              style: theme.textTheme.headlineSmall,
-            );
+          case 1:
+            return const MemberPage();
+          case 2:
+            return const AboutUsPage();
           default:
-            return Text(
-              'Test',
-              style: theme.textTheme.headlineSmall,
-            );
+            return const HomePage();
         }
       },
     );

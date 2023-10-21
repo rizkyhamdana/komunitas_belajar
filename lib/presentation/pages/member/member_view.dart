@@ -6,14 +6,14 @@ import 'package:komunitas_belajar/presentation/widget/custom_text_field.dart';
 import 'package:komunitas_belajar/presentation/widget/spacing.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MemberPage extends StatefulWidget {
+  const MemberPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MemberPage> createState() => _MemberPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MemberPageState extends State<MemberPage> {
   var textFieldController = TextEditingController();
 
   @override
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      'Dokumentasi Kegiatan',
+                      'Anggota Komunitas',
                       style: AppTheme.subtitle2(color: AppTheme.blue1),
                     ),
                   ),
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Expanded(
                         child: CustomTextField(
-                          placeholderText: 'Cari kegiatan disini...',
+                          placeholderText: 'Cari anggota disini...',
                           textFieldController: textFieldController,
                         ),
                       ),

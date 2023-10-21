@@ -115,19 +115,6 @@ class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin {
       },
       footerItems: [
         SidebarXItem(
-          iconWidget: ImageIcon(
-            AssetImage(imagePaths('ic_help')),
-            size: 24,
-            color: currentIndex == 4 ? Colors.white : Colors.black,
-          ),
-          label: 'Bantuan',
-          onTap: () {
-            setState(() {
-              currentIndex = 4;
-            });
-          },
-        ),
-        SidebarXItem(
           iconWidget: Row(
             children: [
               ImageIcon(
@@ -169,11 +156,11 @@ class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin {
         ),
         SidebarXItem(
           iconWidget: ImageIcon(
-            AssetImage(imagePaths('ic_food')),
+            AssetImage(imagePaths('ic_group')),
             size: 24,
             color: currentIndex == 1 ? Colors.white : Colors.black,
           ),
-          label: 'Atur Produk',
+          label: 'Anggota Komunitas',
           onTap: () {
             setState(() {
               currentIndex = 1;
@@ -182,27 +169,14 @@ class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin {
         ),
         SidebarXItem(
           iconWidget: ImageIcon(
-            AssetImage(imagePaths('ic_report')),
+            AssetImage(imagePaths('ic_about')),
             size: 24,
             color: currentIndex == 2 ? Colors.white : Colors.black,
           ),
-          label: 'Laporan',
+          label: 'Tentang Kami',
           onTap: () {
             setState(() {
               currentIndex = 2;
-            });
-          },
-        ),
-        SidebarXItem(
-          iconWidget: ImageIcon(
-            AssetImage(imagePaths('ic_setting')),
-            size: 24,
-            color: currentIndex == 3 ? Colors.white : Colors.black,
-          ),
-          label: 'Pengaturan',
-          onTap: () {
-            setState(() {
-              currentIndex = 3;
             });
           },
         ),
