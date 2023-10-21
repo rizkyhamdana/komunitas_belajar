@@ -40,11 +40,11 @@ class _BasePageState extends State<BasePage> {
             descTextStyle: AppTheme.body3(color: AppTheme.blackColor),
             btnOkColor: AppTheme.blue1,
             buttonsTextStyle: AppTheme.subtitle3(color: AppTheme.white),
-            title: 'Close App?',
-            desc: 'Are you sure want to close this app?',
-            btnCancelText: 'No',
+            title: 'Tutup Aplikasi?',
+            desc: 'Apakah kamu yakin menutup aplikasi?',
+            btnCancelText: 'Batal',
             btnCancelOnPress: () {},
-            btnOkText: 'Yes',
+            btnOkText: 'Ya',
             btnOkOnPress: () {
               context.router.replace(const route.LoginPage());
             },
@@ -72,11 +72,11 @@ class _BasePageState extends State<BasePage> {
           descTextStyle: AppTheme.body3(color: AppTheme.blackColor),
           btnOkColor: AppTheme.blue1,
           buttonsTextStyle: AppTheme.subtitle3(color: AppTheme.white),
-          title: 'Close App?',
-          desc: 'Are you sure want to close this app?',
-          btnCancelText: 'No',
+          title: 'Tutup Aplikasi?',
+          desc: 'Apakah kamu yakin menutup aplikasi?',
+          btnCancelText: 'Batal',
           btnCancelOnPress: () {},
-          btnOkText: 'Yes',
+          btnOkText: 'Ya',
           btnOkOnPress: () {
             context.router.replace(const route.LoginPage());
           },

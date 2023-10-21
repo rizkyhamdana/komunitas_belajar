@@ -46,6 +46,12 @@ class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin {
   }
 
   @override
+  dispose() {
+    _animationController!.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SidebarX(
       controller: widget._controller,

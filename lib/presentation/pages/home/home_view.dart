@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:komunitas_belajar/config/route/app_route.gr.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:komunitas_belajar/config/util/custom_widget.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_text_field.dart';
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppTheme.blue1,
         onPressed: () {
-          // Add your onPressed code here!
+          context.router.push(const CameraCommunityEventPage());
         },
         child: const Icon(
           Icons.camera,
