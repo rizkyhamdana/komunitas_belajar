@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:komunitas_belajar/config/route/app_route.gr.dart' as route;
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:komunitas_belajar/config/util/custom_widget.dart';
 import 'package:komunitas_belajar/presentation/pages/about_us/about_us_view.dart';
@@ -46,7 +46,7 @@ class _BasePageState extends State<BasePage> {
             btnCancelOnPress: () {},
             btnOkText: 'Yes',
             btnOkOnPress: () {
-              SystemNavigator.pop();
+              context.router.replace(const route.LoginPage());
             },
           ).show();
         } else {
@@ -61,62 +61,85 @@ class _BasePageState extends State<BasePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final isSmallScreen = MediaQuery.of(context).size.width < 600;
-        return Scaffold(
-          key: _key,
-          backgroundColor: AppTheme.bgColor,
-          appBar: isSmallScreen
-              ? AppBar(
-                  elevation: 0,
-                  backgroundColor: AppTheme.white,
-                  title: Image.asset(
-                    'assets/images/ic_logo_app.png',
-                    height: 32,
-                  ),
-                  leading: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SizedBox(
-                      width: 32,
+    return WillPopScope(
+      onWillPop: () async {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.noHeader,
+          animType: AnimType.scale,
+          dialogBackgroundColor: AppTheme.bgColor,
+          titleTextStyle: AppTheme.subtitle2(color: AppTheme.blackColor),
+          descTextStyle: AppTheme.body3(color: AppTheme.blackColor),
+          btnOkColor: AppTheme.blue1,
+          buttonsTextStyle: AppTheme.subtitle3(color: AppTheme.white),
+          title: 'Close App?',
+          desc: 'Are you sure want to close this app?',
+          btnCancelText: 'No',
+          btnCancelOnPress: () {},
+          btnOkText: 'Yes',
+          btnOkOnPress: () {
+            context.router.replace(const route.LoginPage());
+          },
+        ).show();
+        return false;
+      },
+      child: Builder(
+        builder: (context) {
+          final isSmallScreen = MediaQuery.of(context).size.width < 600;
+          return Scaffold(
+            key: _key,
+            backgroundColor: AppTheme.bgColor,
+            appBar: isSmallScreen
+                ? AppBar(
+                    elevation: 0,
+                    backgroundColor: AppTheme.white,
+                    title: Image.asset(
+                      'assets/images/ic_logo_app.png',
                       height: 32,
-                      child: MaterialButton(
-                        color: AppTheme.white,
-                        padding: const EdgeInsets.all(4),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        onPressed: () {
-                          _key.currentState?.openDrawer();
-                        },
-                        child: ImageIcon(
-                          AssetImage(imagePaths('ic_menu')),
-                          size: 20,
+                    ),
+                    leading: Container(
+                      margin: const EdgeInsets.all(12),
+                      child: SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: MaterialButton(
+                          color: AppTheme.white,
+                          padding: const EdgeInsets.all(4),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          onPressed: () {
+                            _key.currentState?.openDrawer();
+                          },
+                          child: ImageIcon(
+                            AssetImage(imagePaths('ic_menu')),
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              : null,
-          drawer: Sidebar(
-            controller: _controller,
-          ),
-          body: Row(
-            children: [
-              if (!isSmallScreen)
-                Sidebar(
-                  controller: _controller,
-                ),
-              Expanded(
-                child: Center(
-                  child: ScreenView(
+                  )
+                : null,
+            drawer: Sidebar(
+              controller: _controller,
+            ),
+            body: Row(
+              children: [
+                if (!isSmallScreen)
+                  Sidebar(
                     controller: _controller,
                   ),
+                Expanded(
+                  child: Center(
+                    child: ScreenView(
+                      controller: _controller,
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
+import 'package:komunitas_belajar/presentation/widget/spacing.dart';
 
 @RoutePage()
 class AboutUsPage extends StatefulWidget {
@@ -36,17 +37,67 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 ],
               ),
             ),
+            Expanded(
+              child: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Penanggung Jawab:',
+                      style: AppTheme.body2(),
+                    ),
+                    verticalSpacing(8),
+                    Text(
+                      'BASO SIRAJUDDIN, S.Pd., M.Si',
+                      style: AppTheme.subtitle3(),
+                    ),
+                    verticalSpacing(),
+                    Text(
+                      'Ketua:',
+                      style: AppTheme.body2(),
+                    ),
+                    verticalSpacing(8),
+                    Text(
+                      'AGUNG SETIAWAN, S.Pd',
+                      style: AppTheme.subtitle3(),
+                    ),
+                    verticalSpacing(),
+                    Text(
+                      'Sekretaris:',
+                      style: AppTheme.body2(),
+                    ),
+                    verticalSpacing(8),
+                    Text(
+                      'ANDI IKA YUDIARTIKA, S.Pd.',
+                      style: AppTheme.subtitle3(),
+                    ),
+                    verticalSpacing(),
+                    Text(
+                      'Bendahara',
+                      style: AppTheme.body2(),
+                    ),
+                    verticalSpacing(8),
+                    Text(
+                      'RAHMIANTI, S.Pd',
+                      style: AppTheme.subtitle3(),
+                    ),
+                    verticalSpacing(),
+                    Text(
+                      'Alamat Komunitas:',
+                      style: AppTheme.body2(),
+                    ),
+                    verticalSpacing(8),
+                    Text(
+                      'UPTD SMPN 1 Majauleng, Jln. Nuri, Desa Rumpia, Kecamatan Majauleng, Kabupaten Wajo, Sulawesi Selatan 90991',
+                      style: AppTheme.subtitle3(),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTheme.blue1,
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        child: const Icon(
-          Icons.camera,
-          color: AppTheme.white,
         ),
       ),
     );

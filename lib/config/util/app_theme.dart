@@ -11,6 +11,7 @@ class AppTheme {
   static const Color blue1 = Color(0xFF60C0E1);
   static const Color blue2 = Color(0xFF689FFF);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color red = Color(0xFFFF4343);
 
   static Gradient gradient1({
     Alignment begin = Alignment.topLeft,
@@ -82,7 +83,7 @@ class AppTheme {
       TextStyle(
         fontFamily: fontName,
         fontWeight: FontWeight.w700,
-        fontSize: 14,
+        fontSize: 16,
         color: color,
         decoration: decoration,
         fontStyle: fontStyle,
@@ -96,7 +97,7 @@ class AppTheme {
       TextStyle(
         fontFamily: fontName,
         fontWeight: FontWeight.w600,
-        fontSize: 12,
+        fontSize: 14,
         color: color,
         decoration: decoration,
         fontStyle: fontStyle,
@@ -138,7 +139,7 @@ class AppTheme {
       TextStyle(
         fontFamily: fontName,
         fontWeight: FontWeight.w400,
-        fontSize: 16,
+        fontSize: 14,
         color: color,
         decoration: decoration,
         fontStyle: fontStyle,

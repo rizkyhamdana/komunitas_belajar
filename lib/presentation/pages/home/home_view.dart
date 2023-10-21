@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Expanded(
                         child: CustomTextField(
-                          placeholderText: 'Cari kegiatan disini...',
+                          hintText: 'Cari kegiatan disini...',
                           textFieldController: textFieldController,
                         ),
                       ),

@@ -43,7 +43,7 @@ class _MemberPageState extends State<MemberPage> {
                     children: [
                       Expanded(
                         child: CustomTextField(
-                          placeholderText: 'Cari anggota disini...',
+                          hintText: 'Cari anggota disini...',
                           textFieldController: textFieldController,
                         ),
                       ),
@@ -75,16 +75,6 @@ class _MemberPageState extends State<MemberPage> {
               ),
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTheme.blue1,
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        child: const Icon(
-          Icons.camera,
-          color: AppTheme.white,
         ),
       ),
     );

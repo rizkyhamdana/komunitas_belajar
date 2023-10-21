@@ -6,7 +6,8 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     this.titleText,
-    required this.placeholderText,
+    this.hintText,
+    this.labelText,
     required this.textFieldController,
     this.textInputType,
     this.onChanged,
@@ -21,7 +22,8 @@ class CustomTextField extends StatelessWidget {
   });
 
   final String? titleText;
-  final String placeholderText;
+  final String? hintText;
+  final String? labelText;
   final TextEditingController textFieldController;
   final TextInputType? textInputType;
   final Function(String)? onChanged;
@@ -63,6 +65,7 @@ class CustomTextField extends StatelessWidget {
           style: AppTheme.body3(),
           validator: validator,
           decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
             filled: true,
             fillColor: AppTheme.white,
             suffixIconConstraints:
@@ -70,7 +73,8 @@ class CustomTextField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             suffixIcon: suffixIcon,
-            hintText: placeholderText,
+            labelText: labelText,
+            hintText: hintText,
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(4.0),
@@ -94,6 +98,7 @@ class CustomTextField extends StatelessWidget {
             errorStyle: AppTheme.hintSearch(),
             disabledBorder: InputBorder.none,
             hintStyle: AppTheme.body3(color: AppTheme.blackColor2),
+            labelStyle: AppTheme.body3(color: AppTheme.blackColor2),
           ),
         ),
       ],

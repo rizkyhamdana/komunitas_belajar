@@ -11,6 +11,9 @@ class AppRouter extends $AppRouter {
           initial: true,
         ),
         AutoRoute(page: BasePage.page),
+        CustomRoute(
+            page: LoginPage.page,
+            transitionsBuilder: TransitionsBuilders.noTransition),
         AutoRoute(page: HomePage.page),
         AutoRoute(page: MemberPage.page),
         AutoRoute(page: AboutUsPage.page),

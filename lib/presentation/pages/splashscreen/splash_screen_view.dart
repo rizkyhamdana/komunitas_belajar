@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:komunitas_belajar/config/route/app_route.gr.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 
@@ -19,7 +18,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 4), () {
-      context.router.replace(const BasePage());
+      context.router.replace(const LoginPage());
     });
   }
 
@@ -36,24 +35,29 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top,
             bottom: MediaQuery.of(context).padding.bottom + 24),
-        decoration: const BoxDecoration(color: AppTheme.bgColor),
+        decoration: const BoxDecoration(color: AppTheme.white),
         child: Column(
           children: [
             Expanded(
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Lottie.asset('assets/anim/anim_movie.json',
-                      width: double.infinity),
+                  child: Hero(
+                    tag: 'logo_app',
+                    child: Image.asset(
+                      'assets/images/ic_logo_app2.png',
+                      height: 120,
+                    ),
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'created by rizkyhamdana',
+                '© 2023 SMPN 1 Majauleng',
                 textAlign: TextAlign.center,
-                style: AppTheme.subtitle3(color: AppTheme.white),
+                style: AppTheme.subtitle3(),
               ),
             )
           ],
