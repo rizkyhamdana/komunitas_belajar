@@ -15,7 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var textFieldController = TextEditingController();
+  var userNameController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +46,16 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: CustomTextField(
-                  labelText: 'USERNAME',
-                  textFieldController: textFieldController,
+                  labelText: 'Username',
+                  textFieldController: userNameController,
                 ),
               ),
               verticalSpacing(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: CustomTextField(
-                  labelText: 'PASSWORD',
-                  textFieldController: textFieldController,
+                  labelText: 'Password',
+                  textFieldController: passwordController,
                 ),
               ),
               verticalSpacing(),

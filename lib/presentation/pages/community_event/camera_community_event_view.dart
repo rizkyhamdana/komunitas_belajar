@@ -180,13 +180,13 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
       width: MediaQuery.of(context).size.width,
       color: AppTheme.white,
       padding: EdgeInsets.fromLTRB(
-          48, 24, 48, MediaQuery.of(context).padding.bottom),
+          48, 24, 48, MediaQuery.of(context).padding.bottom + 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(
-            width: 48,
-            height: 48,
+            width: 32,
+            height: 32,
           ),
           Container(
             width: 48,

@@ -12,7 +12,6 @@ import 'config/services/injection.dart';
 
 void main() async {
   configureDependencies();
-  // Initialize the dat
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.database;
   AppConfig.isDebug = true;

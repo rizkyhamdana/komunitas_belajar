@@ -45,6 +45,16 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      'Pembina Pengawas Manajerial:',
+                      style: AppTheme.body2(),
+                    ),
+                    verticalSpacing(8),
+                    Text(
+                      'JUMARDIN, S.Pd., M.Pd',
+                      style: AppTheme.subtitle3(),
+                    ),
+                    verticalSpacing(),
+                    Text(
                       'Penanggung Jawab:',
                       style: AppTheme.body2(),
                     ),

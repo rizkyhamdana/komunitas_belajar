@@ -93,9 +93,14 @@ class _BasePageState extends State<BasePage> {
                 ? AppBar(
                     elevation: 0,
                     backgroundColor: AppTheme.white,
-                    title: Image.asset(
-                      'assets/images/ic_logo_app.png',
-                      height: 32,
+                    title: Padding(
+                      padding: const EdgeInsets.only(right: 56),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/ic_logo_app.png',
+                          height: 32,
+                        ),
+                      ),
                     ),
                     leading: Container(
                       margin: const EdgeInsets.all(12),
