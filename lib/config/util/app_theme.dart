@@ -12,6 +12,7 @@ class AppTheme {
   static const Color blue2 = Color(0xFF689FFF);
   static const Color white = Color(0xFFFFFFFF);
   static const Color red = Color(0xFFFF4343);
+  static const Color orange = Color(0xFFFBAE3A);
 
   static Gradient gradient1({
     Alignment begin = Alignment.topLeft,

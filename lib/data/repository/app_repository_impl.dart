@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:komunitas_belajar/data/database/app_database.dart';
 import 'package:komunitas_belajar/data/model/account.dart';
+import 'package:komunitas_belajar/data/model/community_event.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
 import 'package:injectable/injectable.dart';
@@ -213,8 +215,20 @@ class AppRepositoryImpl implements AppRepository {
       }
 
       return accountFromJson(resultMap);
-    } on DioException catch (e) {
-      throw Exception(Utility.handleError(e));
+    } on FirebaseException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<CommunityEventResponse> getCommunityEvent() async {
+    try {
+      final ref = FirebaseFirestore.instance.collection('community_event');
+      final snapshot = await ref.doc(Constant.COMMUNITY_EVENT).get();
+
+      return communityEventResponseFromJson(snapshot.data() ?? {});
+    } on FirebaseException catch (e) {
+      throw Exception(e);
     }
   }
 }

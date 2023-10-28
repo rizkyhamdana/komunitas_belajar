@@ -52,6 +52,9 @@ class Constant {
   static const String R_CONNECTING_TIME_OUT = 'DioErrorType.connectTimeout';
   static const String R_SERVICE_UNAVAILABLE = '503';
   static const String R_OTHER_TYPE = 'DioErrorType.other';
+
+  //* DOC FIRESTORE
+  static const String COMMUNITY_EVENT = 'jejXalJJKiHAX8rphaya';
 }
 
 class ConstantWeather {

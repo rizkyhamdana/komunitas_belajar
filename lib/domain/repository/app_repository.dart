@@ -1,4 +1,5 @@
 import 'package:komunitas_belajar/data/model/account.dart';
+import 'package:komunitas_belajar/data/model/community_event.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
 
@@ -17,4 +18,5 @@ abstract class AppRepository {
   Future<bool> getTvShowById(int id);
   Future<bool> deleteTvShow(int id);
   Future<Account> login();
+  Future<CommunityEventResponse> getCommunityEvent();
 }
