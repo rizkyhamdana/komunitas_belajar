@@ -18,7 +18,13 @@ class LoginCubit extends Cubit<LoginState> {
   void login(String username, String password) async {
     try {
       emit(LoginLoading());
-      appRepository.login(username, password);
+      var result = await appRepository.login();
+
+      if (result.username == username && result.password == password) {
+        emit(LoginLoaded());
+      } else {
+        emit(const LoginError(error: 'Akun tidak terdaftar'));
+      }
     } catch (e) {
       emit(LoginError(error: Utility.handleErrorString(e.toString())));
     }

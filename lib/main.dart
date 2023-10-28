@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:komunitas_belajar/config/helper/database_helper.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ void main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.database;
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -23,8 +25,25 @@ void main() async {
   AppConfig.isDebug = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
+    configLoading();
     runApp(const MyApp());
   });
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatefulWidget {
@@ -54,6 +73,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.blue1),
         useMaterial3: true,
       ),
+      builder: EasyLoading.init(),
     );
   }
 }

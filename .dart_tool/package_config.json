@@ -398,6 +398,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_easyloading",
+      "rootUri": "file:///Users/rizkyhamdana/.pub-cache/hosted/pub.dev/flutter_easyloading-3.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/rizkyhamdana/.pub-cache/hosted/pub.dev/flutter_lints-3.0.0",
       "packageUri": "lib/",
@@ -408,6 +414,12 @@
       "rootUri": "file:///Users/rizkyhamdana/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.16",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "flutter_spinkit",
+      "rootUri": "file:///Users/rizkyhamdana/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_test",
@@ -944,7 +956,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-28T08:38:36.264993Z",
+  "generated": "2023-10-28T11:10:29.079400Z",
   "generator": "pub",
   "generatorVersion": "3.1.4"
 }

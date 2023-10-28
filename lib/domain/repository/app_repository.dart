@@ -1,3 +1,4 @@
+import 'package:komunitas_belajar/data/model/account.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
 
@@ -15,5 +16,5 @@ abstract class AppRepository {
   Future<void> insertTvShow(TvShow tvShow);
   Future<bool> getTvShowById(int id);
   Future<bool> deleteTvShow(int id);
-  Future<bool> login(String username, String password);
+  Future<Account> login();
 }

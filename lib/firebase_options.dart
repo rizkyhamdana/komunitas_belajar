@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -54,15 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:199299395493:android:bd85c85c0b29200858c24c',
     messagingSenderId: '199299395493',
     projectId: 'magguru-temmangingi',
+    databaseURL: 'https://magguru-temmangingi-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'magguru-temmangingi.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD3adkVhe7_qQCODRIpmkqi1fV_YyZBMCs',
-    appId: '1:199299395493:ios:9f0d70f0d66cf02158c24c',
-    messagingSenderId: '199299395493',
-    projectId: 'magguru-temmangingi',
-    storageBucket: 'magguru-temmangingi.appspot.com',
-    iosBundleId: 'com.rizkyhamdana.kombel',
   );
 }

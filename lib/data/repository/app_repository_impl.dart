@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:komunitas_belajar/data/database/app_database.dart';
+import 'package:komunitas_belajar/data/model/account.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
 import 'package:injectable/injectable.dart';
@@ -199,17 +200,19 @@ class AppRepositoryImpl implements AppRepository {
   }
 
   @override
-  Future<bool> login(String username, String password) async {
+  Future<Account> login() async {
     try {
-      final ref = FirebaseDatabase.instance.ref();
-      final snapshot = await ref.child('account').get();
-      if (snapshot.exists) {
-        print(snapshot.value);
-      } else {
-        print('No data available.');
+      final ref = FirebaseDatabase.instance.ref().child('account');
+      final snapshot = await ref.get();
+      Map<String, dynamic> resultMap = {};
+
+      if (snapshot.value is Map) {
+        (snapshot.value as Map).forEach((key, value) {
+          resultMap[key] = value;
+        });
       }
 
-      return true;
+      return accountFromJson(resultMap);
     } on DioException catch (e) {
       throw Exception(Utility.handleError(e));
     }

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:komunitas_belajar/config/route/app_route.gr.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:komunitas_belajar/config/services/injection.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:komunitas_belajar/presentation/pages/login/login_cubit.dart';
@@ -30,7 +30,14 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<LoginCubit, LoginState>(
         bloc: cubit,
         listener: (context, state) {
+          if (state is LoginLoading) {
+            EasyLoading.show();
+          } else if (state is LoginLoaded) {
+            EasyLoading.dismiss();
+            // context.router.replace(const BasePage());
+          }
           if (state is LoginError) {
+            EasyLoading.dismiss();
             AwesomeDialog(
               context: context,
               dialogType: DialogType.error,
@@ -84,7 +91,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: CustomButton(
                       textButton: 'Login',
                       buttonTap: () {
-                        // context.router.replace(const BasePage());
                         cubit.login(
                             userNameController.text, passwordController.text);
                       },
