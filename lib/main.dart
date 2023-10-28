@@ -6,6 +6,8 @@ import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:komunitas_belajar/config/util/app_config.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'config/route/app_route.dart';
 import 'config/services/injection.dart';
@@ -14,6 +16,10 @@ void main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.database;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   AppConfig.isDebug = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
