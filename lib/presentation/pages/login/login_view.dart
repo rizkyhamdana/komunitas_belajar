@@ -9,6 +9,7 @@ import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:komunitas_belajar/presentation/pages/login/login_cubit.dart';
 import 'package:komunitas_belajar/presentation/pages/login/login_state.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_button.dart';
+import 'package:komunitas_belajar/presentation/widget/custom_suffix_icon.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_text_field.dart';
 import 'package:komunitas_belajar/presentation/widget/spacing.dart';
 
@@ -23,7 +24,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var userNameController = TextEditingController();
   var passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   var cubit = getIt<LoginCubit>();
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -61,50 +64,89 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).padding.bottom + 100,
               ),
-              child: Column(
-                children: [
-                  Hero(
-                    tag: 'logo_app',
-                    child: Image.asset(
-                      'assets/images/ic_logo_app2.png',
-                      height: 120,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Hero(
+                      tag: 'logo_app',
+                      child: Image.asset(
+                        'assets/images/ic_logo_app2.png',
+                        height: 120,
+                      ),
                     ),
-                  ),
-                  verticalSpacing(48),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: CustomTextField(
-                      labelText: 'Username',
-                      textFieldController: userNameController,
+                    verticalSpacing(48),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: CustomTextField(
+                        labelText: 'Username',
+                        textFieldController: userNameController,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Field username tidak boleh kosong';
+                          }
+                          return null;
+                        },
+                        onChanged: (p0) {
+                          _formKey.currentState!.validate();
+
+                          setState(() {});
+                        },
+                      ),
                     ),
-                  ),
-                  verticalSpacing(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: CustomTextField(
-                      labelText: 'Password',
-                      textFieldController: passwordController,
+                    verticalSpacing(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: CustomTextField(
+                        labelText: 'Password',
+                        textFieldController: passwordController,
+                        obscureText: obscureText,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Field password tidak boleh kosong';
+                          }
+                          return null;
+                        },
+                        suffixIcon: CustomSuffixIcon(
+                          obscureText: obscureText,
+                          onTap: () {
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                        ),
+                        onChanged: (p0) {
+                          _formKey.currentState!.validate();
+
+                          setState(() {});
+                        },
+                      ),
                     ),
-                  ),
-                  verticalSpacing(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: CustomButton(
-                      textButton: 'Login',
-                      buttonTap: () {
-                        cubit.login(
-                            userNameController.text, passwordController.text);
-                      },
+                    verticalSpacing(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: CustomButton(
+                        textButton: 'Login',
+                        buttonTap: () {
+                          if (userNameController.text == '' ||
+                              passwordController.text == '') {
+                            _formKey.currentState!.validate();
+                          } else {
+                            cubit.login(userNameController.text,
+                                passwordController.text);
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                  verticalSpacing(),
-                  Text(
-                    'Lupa password?',
-                    style: AppTheme.subtitle3(
-                        color: AppTheme.blackColor2,
-                        decoration: TextDecoration.underline),
-                  ),
-                ],
+                    verticalSpacing(),
+                    Text(
+                      'Lupa password?',
+                      style: AppTheme.subtitle3(
+                          color: AppTheme.blackColor2,
+                          decoration: TextDecoration.underline),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
