@@ -1,7 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:komunitas_belajar/config/route/app_route.gr.dart';
+import 'package:komunitas_belajar/config/services/injection.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
+import 'package:komunitas_belajar/presentation/pages/login/login_cubit.dart';
+import 'package:komunitas_belajar/presentation/pages/login/login_state.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_button.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_text_field.dart';
 import 'package:komunitas_belajar/presentation/widget/spacing.dart';
@@ -17,67 +22,86 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var userNameController = TextEditingController();
   var passwordController = TextEditingController();
+  var cubit = getIt<LoginCubit>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: AppTheme.bgColor,
-        width: double.infinity,
-        height: double.infinity,
-        alignment: Alignment.center,
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top,
-        ),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).padding.bottom + 100,
-          ),
-          child: Column(
-            children: [
-              Hero(
-                tag: 'logo_app',
-                child: Image.asset(
-                  'assets/images/ic_logo_app2.png',
-                  height: 120,
-                ),
+      body: BlocConsumer<LoginCubit, LoginState>(
+        bloc: cubit,
+        listener: (context, state) {
+          if (state is LoginError) {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.error,
+              animType: AnimType.rightSlide,
+              title: 'Error',
+              desc: state.error,
+            ).show();
+          }
+        },
+        builder: (context, state) {
+          return Container(
+            color: AppTheme.bgColor,
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+            ),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom + 100,
               ),
-              verticalSpacing(48),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: CustomTextField(
-                  labelText: 'Username',
-                  textFieldController: userNameController,
-                ),
+              child: Column(
+                children: [
+                  Hero(
+                    tag: 'logo_app',
+                    child: Image.asset(
+                      'assets/images/ic_logo_app2.png',
+                      height: 120,
+                    ),
+                  ),
+                  verticalSpacing(48),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: CustomTextField(
+                      labelText: 'Username',
+                      textFieldController: userNameController,
+                    ),
+                  ),
+                  verticalSpacing(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: CustomTextField(
+                      labelText: 'Password',
+                      textFieldController: passwordController,
+                    ),
+                  ),
+                  verticalSpacing(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: CustomButton(
+                      textButton: 'Login',
+                      buttonTap: () {
+                        // context.router.replace(const BasePage());
+                        cubit.login(
+                            userNameController.text, passwordController.text);
+                      },
+                    ),
+                  ),
+                  verticalSpacing(),
+                  Text(
+                    'Lupa password?',
+                    style: AppTheme.subtitle3(
+                        color: AppTheme.blackColor2,
+                        decoration: TextDecoration.underline),
+                  ),
+                ],
               ),
-              verticalSpacing(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: CustomTextField(
-                  labelText: 'Password',
-                  textFieldController: passwordController,
-                ),
-              ),
-              verticalSpacing(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: CustomButton(
-                  textButton: 'Login',
-                  buttonTap: () {
-                    context.router.replace(const BasePage());
-                  },
-                ),
-              ),
-              verticalSpacing(),
-              Text(
-                'Lupa password?',
-                style: AppTheme.subtitle3(
-                    color: AppTheme.blackColor2,
-                    decoration: TextDecoration.underline),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

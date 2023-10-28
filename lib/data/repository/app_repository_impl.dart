@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:komunitas_belajar/data/database/app_database.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
@@ -191,6 +192,23 @@ class AppRepositoryImpl implements AppRepository {
   Future<bool> deleteTvShow(int id) async {
     try {
       await AppDatabase.instance.deleteTvShow(id);
+      return true;
+    } on DioException catch (e) {
+      throw Exception(Utility.handleError(e));
+    }
+  }
+
+  @override
+  Future<bool> login(String username, String password) async {
+    try {
+      final ref = FirebaseDatabase.instance.ref();
+      final snapshot = await ref.child('account').get();
+      if (snapshot.exists) {
+        print(snapshot.value);
+      } else {
+        print('No data available.');
+      }
+
       return true;
     } on DioException catch (e) {
       throw Exception(Utility.handleError(e));

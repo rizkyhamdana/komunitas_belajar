@@ -15,4 +15,5 @@ abstract class AppRepository {
   Future<void> insertTvShow(TvShow tvShow);
   Future<bool> getTvShowById(int id);
   Future<bool> deleteTvShow(int id);
+  Future<bool> login(String username, String password);
 }

@@ -16,6 +16,8 @@ import 'package:komunitas_belajar/data/repository/app_repository_impl.dart'
     as _i5;
 import 'package:komunitas_belajar/domain/entities/global.dart' as _i7;
 import 'package:komunitas_belajar/domain/repository/app_repository.dart' as _i4;
+import 'package:komunitas_belajar/presentation/pages/login/login_cubit.dart'
+    as _i8;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt init(
@@ -32,5 +34,6 @@ _i1.GetIt init(
   gh.lazySingleton<_i4.AppRepository>(() => _i5.AppRepositoryImpl());
   gh.lazySingleton<_i6.CallApiService>(() => _i6.CallApiService());
   gh.lazySingleton<_i7.Global>(() => _i7.Global());
+  gh.lazySingleton<_i8.LoginCubit>(() => _i8.LoginCubit());
   return getIt;
 }
