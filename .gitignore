@@ -21,4 +21,7 @@
 .pub-cache/
 .pub/
 /build/
+
+#Firebase
 secrets.dart
+google-services.json
