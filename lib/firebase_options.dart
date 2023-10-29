@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:komunitas_belajar/secrets.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -53,11 +54,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC8hAd-6ItLpasbh4SOB7uFxY0fL1O2mPU',
+    apiKey: Secrets.API_KEY,
     appId: '1:199299395493:android:bd85c85c0b29200858c24c',
     messagingSenderId: '199299395493',
     projectId: 'magguru-temmangingi',
-    databaseURL: 'https://magguru-temmangingi-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://magguru-temmangingi-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'magguru-temmangingi.appspot.com',
   );
 }
