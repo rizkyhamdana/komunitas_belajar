@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
     required this.textFieldController,
     this.textInputType,
     this.onChanged,
+    this.onTap,
     this.obscureText = false,
     this.enabled = true,
     this.readOnly = false,
@@ -30,6 +31,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController textFieldController;
   final TextInputType? textInputType;
   final Function(String)? onChanged;
+  final Function()? onTap;
   final String obscuringCharacter;
   final bool obscureText;
   final bool enabled;
@@ -59,6 +61,7 @@ class CustomTextField extends StatelessWidget {
               )
             : Container(),
         TextFormField(
+          onTap: onTap,
           controller: textFieldController,
           autofocus: autoFocus,
           obscureText: obscureText,

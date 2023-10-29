@@ -12,7 +12,6 @@ import 'package:komunitas_belajar/config/route/app_route.gr.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
 import 'package:komunitas_belajar/data/model/community_event.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_appbar.dart';
-import 'package:path_provider/path_provider.dart';
 
 @RoutePage()
 class CameraCommunityEventPage extends StatefulWidget {

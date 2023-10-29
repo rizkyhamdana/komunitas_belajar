@@ -8,6 +8,8 @@ CommunityEventResponse communityEventResponseFromJson(
 String communityEventResponseToJson(CommunityEventResponse data) =>
     json.encode(data.toJson());
 
+String communityEventToJson(CommunityEvent data) => json.encode(data.toJson());
+
 class CommunityEventResponse {
   List<CommunityEvent>? communityEvent;
 
@@ -38,6 +40,7 @@ class CommunityEvent {
   String? image;
   String? classDesc;
   File? imageUpload;
+  File? imageName;
 
   CommunityEvent(
       {this.title,

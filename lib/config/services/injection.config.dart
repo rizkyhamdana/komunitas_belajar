@@ -14,16 +14,18 @@ import 'package:komunitas_belajar/config/helper/api_helper.dart' as _i4;
 import 'package:komunitas_belajar/config/services/call_api_service.dart' as _i7;
 import 'package:komunitas_belajar/data/repository/app_repository_impl.dart'
     as _i6;
-import 'package:komunitas_belajar/domain/entities/global.dart' as _i8;
+import 'package:komunitas_belajar/domain/entities/global.dart' as _i9;
 import 'package:komunitas_belajar/domain/repository/app_repository.dart' as _i5;
 import 'package:komunitas_belajar/presentation/pages/about_us/about_us_cubit.dart'
     as _i3;
+import 'package:komunitas_belajar/presentation/pages/community_event/upload/community_event_upload_cubit.dart'
+    as _i8;
 import 'package:komunitas_belajar/presentation/pages/home/home_cubit.dart'
-    as _i9;
-import 'package:komunitas_belajar/presentation/pages/login/login_cubit.dart'
     as _i10;
-import 'package:komunitas_belajar/presentation/pages/member/member_cubit.dart'
+import 'package:komunitas_belajar/presentation/pages/login/login_cubit.dart'
     as _i11;
+import 'package:komunitas_belajar/presentation/pages/member/member_cubit.dart'
+    as _i12;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt init(
@@ -40,9 +42,11 @@ _i1.GetIt init(
   gh.lazySingleton<_i4.ApiHelper>(() => _i4.ApiHelper());
   gh.lazySingleton<_i5.AppRepository>(() => _i6.AppRepositoryImpl());
   gh.lazySingleton<_i7.CallApiService>(() => _i7.CallApiService());
-  gh.lazySingleton<_i8.Global>(() => _i8.Global());
-  gh.lazySingleton<_i9.HomeCubit>(() => _i9.HomeCubit());
-  gh.lazySingleton<_i10.LoginCubit>(() => _i10.LoginCubit());
-  gh.lazySingleton<_i11.MemberCubit>(() => _i11.MemberCubit());
+  gh.lazySingleton<_i8.CommunityEventUploadCubit>(
+      () => _i8.CommunityEventUploadCubit());
+  gh.lazySingleton<_i9.Global>(() => _i9.Global());
+  gh.lazySingleton<_i10.HomeCubit>(() => _i10.HomeCubit());
+  gh.lazySingleton<_i11.LoginCubit>(() => _i11.LoginCubit());
+  gh.lazySingleton<_i12.MemberCubit>(() => _i12.MemberCubit());
   return getIt;
 }

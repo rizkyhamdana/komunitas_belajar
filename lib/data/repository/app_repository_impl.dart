@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:komunitas_belajar/data/database/app_database.dart';
 import 'package:komunitas_belajar/data/model/about_us.dart';
 import 'package:komunitas_belajar/data/model/account.dart';
 import 'package:komunitas_belajar/data/model/community_event.dart';
+import 'package:komunitas_belajar/data/model/list_class.dart';
 import 'package:komunitas_belajar/data/model/member.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
@@ -253,6 +255,40 @@ class AppRepositoryImpl implements AppRepository {
       final snapshot = await ref.doc(Constant.ABOUT_US).get();
 
       return aboutUsFromJson(snapshot.data() ?? {});
+    } on FirebaseException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> uploadCommunityEvent(
+      CommunityEvent communityEvent, String idMember) async {
+    try {
+      final ref = FirebaseFirestore.instance.collection('community_event');
+      final ref2 = FirebaseFirestore.instance.collection('detail_member');
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('community_event/${communityEvent.imageName}.png');
+      await storageRef.putFile(communityEvent.imageUpload!);
+      communityEvent.image = await storageRef.getDownloadURL();
+      await ref.doc(Constant.COMMUNITY_EVENT).set(communityEvent.toJson());
+
+      await ref2.doc(idMember).update({
+        'imageUploaded':
+            FieldValue.arrayUnion([await storageRef.getDownloadURL()])
+      });
+    } on FirebaseException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<ListClassResponse> getListClass() async {
+    try {
+      final ref = FirebaseFirestore.instance.collection('list_class');
+      final snapshot = await ref.doc(Constant.LIST_CLASS).get();
+
+      return listClassResponseFromJson(snapshot.data() ?? {});
     } on FirebaseException catch (e) {
       throw Exception(e);
     }

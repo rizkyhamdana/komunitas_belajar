@@ -1,6 +1,7 @@
 import 'package:komunitas_belajar/data/model/about_us.dart';
 import 'package:komunitas_belajar/data/model/account.dart';
 import 'package:komunitas_belajar/data/model/community_event.dart';
+import 'package:komunitas_belajar/data/model/list_class.dart';
 import 'package:komunitas_belajar/data/model/member.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
@@ -22,5 +23,8 @@ abstract class AppRepository {
   Future<Account> login();
   Future<CommunityEventResponse> getCommunityEvent();
   Future<MemberResponse> getListMember();
+  Future<ListClassResponse> getListClass();
   Future<AboutUs> getAboutUs();
+  Future<void> uploadCommunityEvent(
+      CommunityEvent communityEvent, String idMember);
 }

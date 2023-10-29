@@ -101,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Password',
                         textFieldController: passwordController,
                         obscureText: obscureText,
+                        maxLines: 1,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Field password tidak boleh kosong';
@@ -133,11 +134,11 @@ class _LoginPageState extends State<LoginPage> {
                             _formKey.currentState!.validate();
                           } else {
                             //* COMMENT THIS TO BYPASS
-                            // cubit.login(userNameController.text,
-                            //     passwordController.text);
+                            cubit.login(userNameController.text,
+                                passwordController.text);
 
                             //* UNCOMMENT THIS TO BYPASS
-                            context.router.replace(const BasePage());
+                            // context.router.replace(const BasePage());
                           }
                         },
                       ),

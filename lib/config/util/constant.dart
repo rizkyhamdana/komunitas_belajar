@@ -57,6 +57,7 @@ class Constant {
   static const String COMMUNITY_EVENT = 'jejXalJJKiHAX8rphaya';
   static const String LIST_MEMBER = '3GA9LoPtMjTUNjQDvtJB';
   static const String ABOUT_US = 'o0u7JAFeQKn0tHrrZRu2';
+  static const String LIST_CLASS = 'Ejs68KbddR8enugBl5cL';
 }
 
 class ConstantWeather {
