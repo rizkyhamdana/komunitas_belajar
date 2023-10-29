@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 CommunityEventResponse communityEventResponseFromJson(
         Map<String, dynamic> str) =>
@@ -36,9 +37,15 @@ class CommunityEvent {
   String? uploadDate;
   String? image;
   String? classDesc;
+  File? imageUpload;
 
   CommunityEvent(
-      {this.title, this.desc, this.uploadBy, this.uploadDate, this.image});
+      {this.title,
+      this.desc,
+      this.uploadBy,
+      this.uploadDate,
+      this.image,
+      this.imageUpload});
 
   CommunityEvent.fromJson(Map<String, dynamic> json) {
     title = json["title"];

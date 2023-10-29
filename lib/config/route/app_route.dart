@@ -19,5 +19,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: MemberPage.page),
         AutoRoute(page: AboutUsPage.page),
         AutoRoute(page: CameraCommunityEventPage.page),
+        AutoRoute(page: CommunityEventUploadPage.page),
       ];
 }

@@ -92,3 +92,37 @@ class CustomButtonWhite extends StatelessWidget {
     );
   }
 }
+
+class CustomButtonDisabled extends StatelessWidget {
+  const CustomButtonDisabled({
+    super.key,
+    this.backgroundColor = AppTheme.grayColor,
+    this.textButton = "Enter",
+    this.widthButton,
+    this.textColor = AppTheme.white,
+  });
+
+  final Color backgroundColor, textColor;
+  final String textButton;
+  final double? widthButton;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: widthButton ?? MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.only(top: 15, bottom: 15),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          textButton,
+          style: AppTheme.subtitle3().copyWith(color: AppTheme.white),
+        ),
+      ),
+    );
+  }
+}

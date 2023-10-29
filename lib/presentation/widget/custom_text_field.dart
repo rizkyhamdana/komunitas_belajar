@@ -19,6 +19,9 @@ class CustomTextField extends StatelessWidget {
     this.textInputAction = TextInputAction.next,
     this.obscuringCharacter = '•',
     this.validator,
+    this.minLines,
+    this.maxLines,
+    this.floatingLabelBehavior,
   });
 
   final String? titleText;
@@ -32,9 +35,12 @@ class CustomTextField extends StatelessWidget {
   final bool enabled;
   final bool readOnly;
   final bool autoFocus;
+  final int? minLines;
+  final int? maxLines;
   final Widget? suffixIcon;
   final TextInputAction textInputAction;
   final FormFieldValidator<String?>? validator;
+  final FloatingLabelBehavior? floatingLabelBehavior;
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +68,14 @@ class CustomTextField extends StatelessWidget {
           readOnly: readOnly,
           onChanged: onChanged,
           textInputAction: textInputAction,
+          minLines: minLines,
+          maxLines: maxLines,
           style: AppTheme.textFieldStyle(),
           validator: validator,
           decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            alignLabelWithHint: true,
+            floatingLabelBehavior:
+                floatingLabelBehavior ?? FloatingLabelBehavior.auto,
             filled: true,
             fillColor: AppTheme.white,
             suffixIconConstraints:

@@ -133,11 +133,11 @@ class _LoginPageState extends State<LoginPage> {
                             _formKey.currentState!.validate();
                           } else {
                             //* COMMENT THIS TO BYPASS
-                            cubit.login(userNameController.text,
-                                passwordController.text);
+                            // cubit.login(userNameController.text,
+                            //     passwordController.text);
 
                             //* UNCOMMENT THIS TO BYPASS
-                            // context.router.replace(const BasePage());
+                            context.router.replace(const BasePage());
                           }
                         },
                       ),

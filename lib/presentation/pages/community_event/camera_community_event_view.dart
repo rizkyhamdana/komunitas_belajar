@@ -7,7 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:komunitas_belajar/config/route/app_route.gr.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
+import 'package:komunitas_belajar/data/model/community_event.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_appbar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -57,6 +60,17 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
     }
   }
 
+  gotoNextPage(CommunityEvent communityEvent) {
+    context.router
+        .navigate(CommunityEventUploadPage(communityEvent: communityEvent));
+  }
+
+  String formatDateNow() {
+    final now = DateTime.now();
+    final formatter = DateFormat('ddMMyyyyHHmm');
+    return formatter.format(now);
+  }
+
   void onTakePictureButtonPressed() async {
     var result = await takePicture();
     if (mounted) {
@@ -68,19 +82,44 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
     if (result != null) {
       img.Image? capturedImage =
           img.decodeImage(await File(result.path).readAsBytes());
-      img.Image orientedImage = img.copyRotate(
-        capturedImage!,
-        angle: -90,
-      );
-      img.Image croppedImage =
-          img.copyCrop(orientedImage, x: 160, y: 90, width: 960, height: 540);
-      Uint8List imageInUnit8List = img.encodeJpg(croppedImage);
-      final tempDir = await getTemporaryDirectory();
-      File file = await File('${tempDir.path}/image.png').create();
-      file.writeAsBytesSync(imageInUnit8List, mode: FileMode.write);
+      img.Image orientedImage = img.copyRotate(capturedImage!, angle: -90);
+      Uint8List imageInUnit8List = img.encodeJpg(orientedImage);
+      File? file = uint8ListToFile(imageInUnit8List, "$formatDateNow(),png");
+      if (file != null) {
+        var imageCrop = await ImageCropper().cropImage(
+          sourcePath: file.path,
+          aspectRatio: const CropAspectRatio(ratioX: 16.0, ratioY: 9.0),
+          aspectRatioPresets: [CropAspectRatioPreset.ratio16x9],
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: AppTheme.blue1,
+                toolbarWidgetColor: Colors.white,
+                initAspectRatio: CropAspectRatioPreset.ratio16x9,
+                lockAspectRatio: true),
+            IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true),
+          ],
+        );
+        if (imageCrop != null) {
+          CommunityEvent communityEvent =
+              CommunityEvent(imageUpload: File(imageCrop.path));
+          gotoNextPage(communityEvent);
+        }
+      }
+    }
+  }
 
-      if (Platform.isIOS) {
-      } else {}
+  File? uint8ListToFile(Uint8List uint8List, String filename) {
+    try {
+      final buffer = uint8List.buffer.asUint8List();
+      final tempDir = Directory.systemTemp;
+      final filePath = "${tempDir.path}/$filename";
+      final file = File(filePath);
+      file.writeAsBytesSync(buffer);
+      return file;
+    } catch (e) {
+      print("Error: $e");
+      return null;
     }
   }
 
@@ -195,7 +234,7 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
                 color: AppTheme.blue1, borderRadius: BorderRadius.circular(50)),
             child: FloatingActionButton.large(
               backgroundColor: AppTheme.white,
-              onPressed: () {},
+              onPressed: onTakePictureButtonPressed,
               child: const Icon(
                 Icons.camera,
                 color: AppTheme.blue1,
