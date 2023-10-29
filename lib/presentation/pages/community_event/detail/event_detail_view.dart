@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
+import 'package:komunitas_belajar/config/util/custom_widget.dart';
 import 'package:komunitas_belajar/data/model/community_event.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_appbar.dart';
 import 'package:komunitas_belajar/presentation/widget/spacing.dart';
+import 'package:shimmer/shimmer.dart';
 
 @RoutePage()
 class EventDetailPage extends StatefulWidget {
@@ -37,10 +40,32 @@ class _EventDetailPageState extends State<EventDetailPage> {
             ),
           ),
           verticalSpacing(8),
-          Image.network(
-            widget.communityEvent.image ?? "",
+          CachedNetworkImage(
             width: double.infinity,
+            imageUrl: widget.communityEvent.image ?? "",
             fit: BoxFit.cover,
+            errorWidget: (context, url, error) {
+              return Container(
+                width: double.infinity,
+                height: 180,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage(imagePaths('image_placeholder')),
+                  fit: BoxFit.cover,
+                )),
+              );
+            },
+            placeholder: (context, url) {
+              return Shimmer.fromColors(
+                baseColor: Colors.black12,
+                highlightColor: AppTheme.white,
+                child: Container(
+                  width: double.infinity,
+                  height: 180,
+                  color: AppTheme.blue1,
+                ),
+              );
+            },
           ),
           verticalSpacing(32),
           Padding(

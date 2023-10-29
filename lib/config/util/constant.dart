@@ -55,6 +55,8 @@ class Constant {
 
   //* DOC FIRESTORE
   static const String COMMUNITY_EVENT = 'jejXalJJKiHAX8rphaya';
+  static const String LIST_MEMBER = '3GA9LoPtMjTUNjQDvtJB';
+  static const String ABOUT_US = 'o0u7JAFeQKn0tHrrZRu2';
 }
 
 class ConstantWeather {

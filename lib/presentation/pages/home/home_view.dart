@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:komunitas_belajar/config/route/app_route.gr.dart';
 import 'package:komunitas_belajar/config/services/injection.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: listCommunityEvent.length,
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
+                              horizontal: 16,
                             ),
                             itemBuilder: (BuildContext context, int index) {
                               return _buildListEvent(listCommunityEvent[index]);
@@ -143,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: 10,
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
+                              horizontal: 16,
                             ),
                             itemBuilder: (BuildContext context, int index) {
                               return _buildListLoading();
@@ -190,18 +191,35 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 180,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8)),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        communityEvent.image ?? "",
-                      ),
-                      fit: BoxFit.fitHeight,
-                    ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8)),
+                  child: CachedNetworkImage(
+                    imageUrl: communityEvent.image ?? "",
+                    errorWidget: (context, url, error) {
+                      return Container(
+                        width: double.infinity,
+                        height: 180,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                  imagePaths('image_placeholder'),
+                                ),
+                                fit: BoxFit.cover)),
+                      );
+                    },
+                    placeholder: (context, url) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.black12,
+                        highlightColor: AppTheme.white,
+                        child: Container(
+                          width: double.infinity,
+                          height: 180,
+                          color: AppTheme.blue1,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Padding(

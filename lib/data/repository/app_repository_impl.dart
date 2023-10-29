@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:komunitas_belajar/data/database/app_database.dart';
+import 'package:komunitas_belajar/data/model/about_us.dart';
 import 'package:komunitas_belajar/data/model/account.dart';
 import 'package:komunitas_belajar/data/model/community_event.dart';
+import 'package:komunitas_belajar/data/model/member.dart';
 import 'package:komunitas_belajar/data/model/movie.dart';
 import 'package:komunitas_belajar/data/model/tv_show.dart';
 import 'package:injectable/injectable.dart';
@@ -227,6 +229,30 @@ class AppRepositoryImpl implements AppRepository {
       final snapshot = await ref.doc(Constant.COMMUNITY_EVENT).get();
 
       return communityEventResponseFromJson(snapshot.data() ?? {});
+    } on FirebaseException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<MemberResponse> getListMember() async {
+    try {
+      final ref = FirebaseFirestore.instance.collection('list_member');
+      final snapshot = await ref.doc(Constant.LIST_MEMBER).get();
+
+      return memberResponseFromJson(snapshot.data() ?? {});
+    } on FirebaseException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<AboutUs> getAboutUs() async {
+    try {
+      final ref = FirebaseFirestore.instance.collection('about_us');
+      final snapshot = await ref.doc(Constant.ABOUT_US).get();
+
+      return aboutUsFromJson(snapshot.data() ?? {});
     } on FirebaseException catch (e) {
       throw Exception(e);
     }

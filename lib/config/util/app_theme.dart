@@ -145,6 +145,19 @@ class AppTheme {
         decoration: decoration,
         fontStyle: fontStyle,
       );
+  static TextStyle textFieldStyle({
+    Color? color = blackColor,
+    TextDecoration? decoration,
+    FontStyle? fontStyle,
+  }) =>
+      TextStyle(
+        fontFamily: fontName,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+        color: color,
+        decoration: decoration,
+        fontStyle: fontStyle,
+      );
 
   static TextStyle body3({
     Color? color = blackColor,
