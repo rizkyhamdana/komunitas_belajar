@@ -61,12 +61,12 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
 
   gotoNextPage(CommunityEvent communityEvent) {
     context.router
-        .navigate(CommunityEventUploadPage(communityEvent: communityEvent));
+        .replace(CommunityEventUploadPage(communityEvent: communityEvent));
   }
 
   String formatDateNow() {
     final now = DateTime.now();
-    final formatter = DateFormat('ddMMyyyyHHmm');
+    final formatter = DateFormat('ddMMyyyyHHmmss');
     return formatter.format(now);
   }
 
@@ -83,7 +83,8 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
           img.decodeImage(await File(result.path).readAsBytes());
       img.Image orientedImage = img.copyRotate(capturedImage!, angle: -90);
       Uint8List imageInUnit8List = img.encodeJpg(orientedImage);
-      File? file = uint8ListToFile(imageInUnit8List, "$formatDateNow(),png");
+      File? file = uint8ListToFile(imageInUnit8List, "$formatDateNow().png");
+
       if (file != null) {
         var imageCrop = await ImageCropper().cropImage(
           sourcePath: file.path,
@@ -100,8 +101,8 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
           ],
         );
         if (imageCrop != null) {
-          CommunityEvent communityEvent =
-              CommunityEvent(imageUpload: File(imageCrop.path));
+          CommunityEvent communityEvent = CommunityEvent(
+              imageUpload: File(imageCrop.path), imageName: formatDateNow());
           gotoNextPage(communityEvent);
         }
       }
@@ -117,7 +118,7 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
       file.writeAsBytesSync(buffer);
       return file;
     } catch (e) {
-      print("Error: $e");
+      debugPrint("Error: $e");
       return null;
     }
   }

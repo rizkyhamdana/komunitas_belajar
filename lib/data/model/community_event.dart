@@ -40,7 +40,7 @@ class CommunityEvent {
   String? image;
   String? classDesc;
   File? imageUpload;
-  File? imageName;
+  String? imageName;
 
   CommunityEvent(
       {this.title,
@@ -48,7 +48,8 @@ class CommunityEvent {
       this.uploadBy,
       this.uploadDate,
       this.image,
-      this.imageUpload});
+      this.imageUpload,
+      this.imageName});
 
   CommunityEvent.fromJson(Map<String, dynamic> json) {
     title = json["title"];

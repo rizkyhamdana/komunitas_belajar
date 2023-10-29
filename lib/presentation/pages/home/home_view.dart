@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // cubit.getCommunityEvent();
     return Scaffold(
       body: Container(
         color: AppTheme.bgColor,

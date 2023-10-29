@@ -197,7 +197,7 @@ class _CommunityEventUploadPageState extends State<CommunityEventUploadPage> {
               // context.router.replace(const BasePage());
             } else if (state is CommunityEventUploadLoaded) {
               EasyLoading.dismiss();
-              context.router.replaceAll([const BasePage()]);
+              AutoRouter.of(context).push(const BasePage());
             } else if (state is CommunityEventUploadError) {
               EasyLoading.dismiss();
               AwesomeDialog(
