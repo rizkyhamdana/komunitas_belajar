@@ -293,7 +293,7 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
 
       debugPrint('Data: ${pickedFile?.path}');
       if (pickedFile != null) {
-        await ImageCropper().cropImage(
+        var imageCrop = await ImageCropper().cropImage(
           sourcePath: pickedFile.path,
           aspectRatio: const CropAspectRatio(ratioX: 16.0, ratioY: 9.0),
           aspectRatioPresets: [CropAspectRatioPreset.ratio16x9],
@@ -307,6 +307,11 @@ class _CameraCommunityEventPageState extends State<CameraCommunityEventPage> {
             IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true),
           ],
         );
+        if (imageCrop != null) {
+          CommunityEvent communityEvent = CommunityEvent(
+              imageUpload: File(imageCrop.path), imageName: formatDateNow());
+          gotoNextPage(communityEvent);
+        }
       } else {}
       // if (_data != null) {
       //   navigationTo(QrisInputNominalPage.routes, []);
