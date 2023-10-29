@@ -46,7 +46,7 @@ class _BasePageState extends State<BasePage> {
             btnCancelOnPress: () {},
             btnOkText: 'Ya',
             btnOkOnPress: () {
-              context.router.replace(const route.LoginPage());
+              context.router.replaceAll([const route.LoginPage()]);
             },
           ).show();
         } else {
@@ -78,7 +78,7 @@ class _BasePageState extends State<BasePage> {
           btnCancelOnPress: () {},
           btnOkText: 'Ya',
           btnOkOnPress: () {
-            context.router.replace(const route.LoginPage());
+            context.router.replaceAll([const route.LoginPage()]);
           },
         ).show();
         return false;
