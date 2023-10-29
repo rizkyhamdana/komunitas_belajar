@@ -15,6 +15,7 @@ class AppRouter extends $AppRouter {
             page: LoginPage.page,
             transitionsBuilder: TransitionsBuilders.noTransition),
         AutoRoute(page: HomePage.page),
+        AutoRoute(page: EventDetailPage.page),
         AutoRoute(page: MemberPage.page),
         AutoRoute(page: AboutUsPage.page),
         AutoRoute(page: CameraCommunityEventPage.page),

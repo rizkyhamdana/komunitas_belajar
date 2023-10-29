@@ -35,6 +35,7 @@ class CommunityEvent {
   String? uploadBy;
   String? uploadDate;
   String? image;
+  String? classDesc;
 
   CommunityEvent(
       {this.title, this.desc, this.uploadBy, this.uploadDate, this.image});
@@ -45,6 +46,7 @@ class CommunityEvent {
     uploadBy = json["uploadBy"];
     uploadDate = json["uploadDate"];
     image = json["image"];
+    classDesc = json["classDesc"];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +56,7 @@ class CommunityEvent {
     data["uploadBy"] = uploadBy;
     data["uploadDate"] = uploadDate;
     data["image"] = image;
+    data["classDesc"] = classDesc;
     return data;
   }
 }

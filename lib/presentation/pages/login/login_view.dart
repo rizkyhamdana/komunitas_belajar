@@ -132,8 +132,9 @@ class _LoginPageState extends State<LoginPage> {
                               passwordController.text == '') {
                             _formKey.currentState!.validate();
                           } else {
-                            cubit.login(userNameController.text,
-                                passwordController.text);
+                            // cubit.login(userNameController.text,
+                            //     passwordController.text);
+                            context.router.replace(const BasePage());
                           }
                         },
                       ),

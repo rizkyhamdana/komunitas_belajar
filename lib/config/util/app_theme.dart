@@ -83,7 +83,7 @@ class AppTheme {
   }) =>
       TextStyle(
         fontFamily: fontName,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
         fontSize: 16,
         color: color,
         decoration: decoration,

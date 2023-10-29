@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:komunitas_belajar/config/route/app_route.gr.dart';
 import 'package:komunitas_belajar/config/services/injection.dart';
 import 'package:komunitas_belajar/config/util/app_theme.dart';
@@ -12,6 +11,7 @@ import 'package:komunitas_belajar/presentation/pages/home/home_cubit.dart';
 import 'package:komunitas_belajar/presentation/pages/home/home_state.dart';
 import 'package:komunitas_belajar/presentation/widget/custom_text_field.dart';
 import 'package:komunitas_belajar/presentation/widget/spacing.dart';
+import 'package:shimmer/shimmer.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -95,16 +95,13 @@ class _HomePageState extends State<HomePage> {
                 bloc: cubit,
                 listener: (context, state) {
                   if (state is HomeLoading) {
-                    EasyLoading.show();
                   } else if (state is HomeLoaded) {
-                    EasyLoading.dismiss();
                     setState(() {
                       listCommunityEvent = state.listCommunityEvent;
                     });
                     // context.router.replace(const BasePage());
                   }
                   if (state is HomeError) {
-                    EasyLoading.dismiss();
                     AwesomeDialog(
                       context: context,
                       dialogType: DialogType.error,
@@ -115,24 +112,47 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
                 builder: (context, state) {
-                  return SingleChildScrollView(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Column(
-                      children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: listCommunityEvent.length,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
+                  if (state is HomeLoaded) {
+                    return SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: listCommunityEvent.length,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return _buildListEvent(listCommunityEvent[index]);
+                            },
                           ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return _buildListEvent(listCommunityEvent[index]);
-                          },
-                        ),
-                      ],
-                    ),
-                  );
+                        ],
+                      ),
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: 10,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return _buildListLoading();
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 },
               ),
             )
@@ -153,57 +173,84 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildListEvent(CommunityEvent communityEvent) {
-    return Container(
-      decoration: BoxDecoration(
-          color: AppTheme.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: AppTheme.boxShadow2),
-      margin: const EdgeInsets.only(top: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 180,
+    return Column(
+      children: [
+        verticalSpacing(),
+        MaterialButton(
+          onPressed: () {
+            context.router
+                .push(EventDetailPage(communityEvent: communityEvent));
+          },
+          padding: EdgeInsets.zero,
+          child: Container(
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-              image: DecorationImage(
-                image: NetworkImage(
-                  communityEvent.image ?? "",
-                ),
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+                color: AppTheme.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: AppTheme.boxShadow2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  communityEvent.title ?? "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.subtitle3(),
+                Container(
+                  height: 180,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8)),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        communityEvent.image ?? "",
+                      ),
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
                 ),
-                verticalSpacing(4),
-                Text(
-                  "Diupload oleh: ${communityEvent.uploadBy}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.subtitle3(color: AppTheme.orange),
-                ),
-                verticalSpacing(4),
-                Text(
-                  communityEvent.uploadDate ?? "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.body2(),
-                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        communityEvent.title ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.subtitle3(),
+                      ),
+                      verticalSpacing(4),
+                      Text(
+                        communityEvent.classDesc ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.subtitle3(color: AppTheme.orange),
+                      ),
+                      verticalSpacing(4),
+                      Text(
+                        "Diupload ${communityEvent.uploadDate}, Oleh ${communityEvent.uploadBy} ",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.body3(),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
-          )
-        ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _buildListLoading() {
+    return Shimmer.fromColors(
+      baseColor: AppTheme.blackShadow,
+      highlightColor: AppTheme.blackColor2,
+      child: Container(
+        height: 272,
+        decoration: BoxDecoration(
+            color: AppTheme.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: AppTheme.boxShadow2),
+        margin: const EdgeInsets.only(top: 16),
       ),
     );
   }
