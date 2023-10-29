@@ -271,7 +271,9 @@ class AppRepositoryImpl implements AppRepository {
           .child('community_event/${communityEvent.imageName}.png');
       await storageRef.putFile(communityEvent.imageUpload!);
       communityEvent.image = await storageRef.getDownloadURL();
-      await ref.doc(Constant.COMMUNITY_EVENT).set(communityEvent.toJson());
+      await ref.doc(Constant.COMMUNITY_EVENT).update({
+        'communityEvent': FieldValue.arrayUnion([communityEvent.toJson()])
+      });
 
       await ref2.doc(idMember).update({
         'imageUploaded':
