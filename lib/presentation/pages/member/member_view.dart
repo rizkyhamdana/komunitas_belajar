@@ -126,7 +126,7 @@ class _MemberPageState extends State<MemberPage> {
                               horizontal: 16,
                             ),
                             itemBuilder: (BuildContext context, int index) {
-                              return _buildListMember(listMember[0]);
+                              return _buildListMember(listMember[index]);
                             },
                           ),
                         ],
